@@ -7,15 +7,35 @@
 //
 
 import SwiftUI
+import Foundation
 
 struct ContentView: View {
+    
+    @ObservedObject var viewModel = ContentViewVM()
+    
     var body: some View {
-        Text("Hello, World!")
+        
+        VStack {
+            
+            ChuckNorisFactView(fact: viewModel.fact)
+
+            Button(action: { self.viewModel.getChuckNorisFact() }) {
+                Text("button")
+            }
+        
+            
+            
+        }
     }
 }
+
+
+
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView()
+        ContentView(viewModel: .init())
     }
 }
+
+
