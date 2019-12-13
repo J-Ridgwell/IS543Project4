@@ -29,22 +29,28 @@ struct ContentView: View {
             Spacer()
             
             VStack {
-                
+                Divider()
                 Spacer()
                 
-                TextField("animal,food", text: self.$viewModel.category)
+                TextField("category", text: self.$viewModel.category)
+                    .padding()
                     .border(Color.black)
-                    .padding(.top)
+                    .padding(.leading)
+                    .padding(.trailing)
                     .disabled(isChecked)
                 
                 TextField("Query", text: self.$viewModel.query)
-                    .border(Color.black)
                     .padding()
+                    .border(Color.black)
+                    .padding(.leading)
+                    .padding(.trailing)
                     .disabled(isChecked)
                 
                 TextField("Name", text: self.$viewModel.name)
-                    .border(Color.black)
                     .padding()
+                    .border(Color.black)
+                    .padding(.leading)
+                    .padding(.trailing)
                     .disabled(isChecked)
 
 
@@ -58,11 +64,14 @@ struct ContentView: View {
                     
                 }.padding()
                 
-            }.frame(width: UIScreen.main.bounds.width / 2, height: 100)
+            }
             
             Spacer()
             
-            Button(action: { self.viewModel.getQuote() }) {
+            Button(action: {
+                self.viewModel.getQuote()
+                
+            }) {
                 
                 Text("Get Quote")
                     .bold()
@@ -77,8 +86,8 @@ struct ContentView: View {
     }
         
     func toggle() {
+        self.viewModel.random = !isChecked
         isChecked = !isChecked
-        
     }
 }
 

@@ -16,6 +16,7 @@ class ContentViewVM : ObservableObject {
     var category: String = ""
     var query: String = ""
     var name: String = ""
+    var random: Bool = false
     
     private var urlExtension: String = ""
     private var URL_BASE: String = "https://api.chucknorris.io/jokes/"
@@ -27,6 +28,7 @@ class ContentViewVM : ObservableObject {
     
     private func apiCaller() {
         let urlString = "\(URL_BASE)\(urlExtension.lowercased())"
+//        print(urlString)
         guard let url = URL(string: urlString) else {
             return
         }
@@ -61,30 +63,40 @@ class ContentViewVM : ObservableObject {
                 }
                 
             }
+            
+            
         }.resume()
     }
     
     private func buildUrl() {
+        urlExtension = ""
+        if (random) {
+            urlExtension += "random?"
+            self.category = ""
+            self.query = ""
+            self.name = ""
+        } else {
+            if (self.query != "") {
+                self.category = ""
+                self.name = ""
+                urlExtension = "search?query=\(self.query)"
+                return
+            }
+            
+            if (self.name != "") {
+                urlExtension += "random?name=\(self.name)"
                 
-        if (self.query != "") {
-            urlExtension = "search?query=\(self.query)"
-            return
-        }
-        
-        if (self.name != "") {
-            urlExtension += "random?name=\(self.name)"
+                if (self.category != "") {
+                    urlExtension += "&category=\(category)"
+                }
+                return
+            }
+            urlExtension += "random?"
             
             if (self.category != "") {
-                urlExtension += "&category=\(category)"
+                urlExtension += "category=\(category)"
             }
-            return
         }
-        urlExtension += "random?"
-        
-        if (self.category != "") {
-            urlExtension += "category=\(category)"
-        }
-        
     }
 
 }
