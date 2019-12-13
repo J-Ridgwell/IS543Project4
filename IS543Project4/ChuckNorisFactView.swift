@@ -14,23 +14,24 @@ struct ChuckNorisFactView: View {
     
     var body: some View {
         
-        VStack {
-//            ImageView(withURL: fact?.icon_url ?? "none")
-            Text(fact?.value ?? "URL")
-        }
+        Text(fact?.value ?? "")
+        .padding()
         
+//        layer.cornerRadius = 20.0
+//        layer.shadowColor = UIColor.gray.cgColor
+//        layer.shadowOffset = CGSize(width: 0.0, height: 0.0)
+//        layer.shadowRadius = 12.0
+//        self.layer.shadowOpacity = 0.7
     }
+    
     
 }
 
 struct ChuckNorisFactView_Previews: PreviewProvider {
-        
+
     static var previews: some View {
-        ChuckNorisFactView(
-            fact: ChuckNorisFact(
-                icon_url: "URL", id: "0", url: "NONE", value: "loading"
-                )
-        )
+        
+        ChuckNorisFactView(fact: ChuckNorisFact())
         
     }
 }

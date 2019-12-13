@@ -12,20 +12,70 @@ import Foundation
 struct ContentView: View {
     
     @ObservedObject var viewModel = ContentViewVM()
+    @State var isChecked: Bool = false
+    @State var queryChecked: Bool = false
     
     var body: some View {
         
         VStack {
-            
-            ChuckNorisFactView(fact: viewModel.fact)
+            Image("chuckNorisPixelArt")
 
-            Button(action: { self.viewModel.getChuckNorisFact() }) {
-                Text("button")
-            }
-        
+            ChuckNorisFactView(fact: viewModel.fact)
+                .cornerRadius(28)
+                .shadow(radius: 16, y: 16)
+            Spacer()
             
+            VStack {
+                
+                Spacer()
+                
+                TextField("animal,food", text: self.$viewModel.category)
+                    .border(Color.black)
+                    .padding()
+                    .disabled(isChecked)
+                
+                TextField("Query", text: self.$viewModel.query)
+                    .border(Color.black)
+                    .padding()
+                    .disabled(isChecked)
+                
+                TextField("Name", text: self.$viewModel.name)
+                    .border(Color.black)
+                    .padding()
+                    .disabled(isChecked)
+
+
+                HStack {
+                    
+                    Text("Random")
+                    
+                    Button(action: { self.toggle() }) {
+                        Image(systemName: isChecked ? "checkmark.square": "square")
+                    }
+                    
+                }.padding()
+                
+            }.frame(width: UIScreen.main.bounds.width / 2, height: 100)
             
+            Spacer()
+            
+            Button(action: { self.viewModel.getQuote() }) {
+                
+                Text("Get Quote")
+                    .bold()
+                
+            }.padding()
+            
+            Spacer()
+
         }
+        
+        
+    }
+        
+    func toggle() {
+        isChecked = !isChecked
+        
     }
 }
 
@@ -34,7 +84,9 @@ struct ContentView: View {
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView(viewModel: .init())
+        ContentView(
+            viewModel: ContentViewVM(), isChecked: false, queryChecked: false
+        )
     }
 }
 
