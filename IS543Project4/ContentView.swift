@@ -21,8 +21,11 @@ struct ContentView: View {
             Image("chuckNorisPixelArt")
 
             ChuckNorisFactView(fact: viewModel.fact)
-                .cornerRadius(28)
-                .shadow(radius: 16, y: 16)
+                .padding()
+                .shadow(color: Color.gray, radius: 1)
+                .border(Color.gray, width: 1)
+                .cornerRadius(3)
+
             Spacer()
             
             VStack {
@@ -31,7 +34,7 @@ struct ContentView: View {
                 
                 TextField("animal,food", text: self.$viewModel.category)
                     .border(Color.black)
-                    .padding()
+                    .padding(.top)
                     .disabled(isChecked)
                 
                 TextField("Query", text: self.$viewModel.query)

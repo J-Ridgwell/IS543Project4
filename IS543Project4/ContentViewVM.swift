@@ -45,11 +45,10 @@ class ContentViewVM : ObservableObject {
                 
                 DispatchQueue.main.async {
                     self.fact = chuckNorisFactObj
-                    print(self.fact.value ?? "No fact")
                 }
             } catch {
                 print(error.localizedDescription)
-                
+                print("For url: \(urlString)")
                 do {
                     let facts = try decoder.decode(Facts.self, from: data)
                     
@@ -78,7 +77,7 @@ class ContentViewVM : ObservableObject {
             if (self.category != "") {
                 urlExtension += "&category=\(category)"
             }
-            
+            return
         }
         urlExtension += "random?"
         
